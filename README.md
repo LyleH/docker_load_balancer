@@ -8,10 +8,8 @@ There are different approaches and techniques for load balancing and DNS round r
 
 # DNS Round Robin in Docker
 
-So all we need is a DNS server then. Luckily for us, the Docker Engine implements an embedded DNS server for containers in user-defined networks since Docker 1.10. In particular, containers that are run with a network alias ( — net-alias) are resolved by this embedded DNS with the IP address of the container when the alias is used.
+So all we need is a DNS server then. Luckily for us, the Docker Engine implements an embedded DNS server for containers in user-defined networks since Docker 1.10. In particular, containers that are run with a network alias ( — net-alias) are resolved by this embedded DNS with the IP address of the container when the alias is used. Let´s see it in practice:
 
-
-## 
 ```
 git clone https://github.com/LyleH/docker_load_balancer
 $ cd lb
@@ -43,6 +41,18 @@ $ docker-compose logs client | grep client_2 | grep PING | sort | uniq -c
   5 client_2  | PING server (172.20.0.5)
   2 client_2  | PING server (172.20.0.6)
   5 client_2  | PING server (172.20.0.7)
+  
+  
+  
   ```
   
+  # Things to note
+  When doing source compose.env, it defaults to
+  ```
+  export COMPOSE_FILE=docker-compose.yml:dev.yml
+  ```
+  this needs to be changed by running the following command after source compose.env, run
+  ```
+  export COMPOSE_FILE=docker-compose.yml
+  ```
   
