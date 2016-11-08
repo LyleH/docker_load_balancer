@@ -1,6 +1,14 @@
 # docker_load_balancer
 Testing DNS round robin in Docker
 
+# Benefits of load balancing
+
+Scalability - The amount of traffic a website receives has a substantial effect on its performance, and load balancing provides the capability to handle most sudden spikes in traffic by spreading the traffic across multiple servers. Adding more load balanced servers to handle increased traffic is much easier and faster to implement than moving a site to an entirely new, more powerful server.
+
+Flexibility - Using multiple load balanced servers to handle a site’s traffic allows administrators the flexibility to perform maintenance on a server without impacting site uptime. This can be done by pointing all traffic to one server and placing the load balancer in active/passive mode.
+
+Stability - Perhaps the biggest win, instead of your website / service being a single point of failure, load balancing allows the site / service to continue operation when some instraces of the service has died due to unforeseen circumstances like environmental issues etc.. 
+
 # DNS Round Robin: A “poor man’s” load balancing solution.
 
 There are different approaches and techniques for load balancing and DNS round robin is just one of them. With DNS round robin, we rely on the DNS server responses instead of a strictly dedicated appliance, server or container with more sophisticated algorithms and strategies…so we often refer DNS round robin as poor’s man load balancing. How does it work exactly? Simply by getting the DNS servers to respond to DNS requests not only with a single potential IP address, but with one out of a list of potential IP addresses corresponding to several servers or containers that host identical services.
