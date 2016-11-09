@@ -64,3 +64,30 @@ $ docker-compose logs client | grep client_2 | grep PING | sort | uniq -c
   export COMPOSE_FILE=docker-compose.yml
   ```
   
+# Setting up a particular load balancer
+In the docker-compose.yml:dev.yml of you lb, add the services you would like to load balance.
+Ensure that you do not clash ports with the actual services, this can be achived by creating a env file in your lb with port mappings as below:
+```
+WMS_API_HOST=10.4.1.51
+WMS_API_PORT=8021
+ADAPTRIS_SERVICE_HOST=10.4.1.51
+ADAPTRIS_SERVICE_PORT=8022
+```
+
+# Now update your dev.yml something like
+```
+version: '2'
+services:
+  wmsapi:
+    env_file: env
+    extends:
+      file: ../../../services/wmsapi.yml
+      service: wmsapi
+  service_wms:
+    env_file: env
+    extends:
+      file: ../../../services/service_wms.yml
+      service: service_wms
+    command: bash -c "/opt/protobuf/bin/protoc --proto_path=wms/interfaces/protobuffs --python_out=wms/interfaces/protobuffs wms/interfaces/protobuffs/*.proto && pip install --trusted-host pypi01.stagealot.com --index-url http://pypi01.stagealot.com/pypi -e . && /usr/local/bin/s3f_service.py --service-type wms -in 0.0.0.0:6333 -ll INFO"
+```
+# Start the load balancer and also your service and they will run in parallel as below.
