@@ -91,3 +91,4 @@ services:
     command: bash -c "/opt/protobuf/bin/protoc --proto_path=wms/interfaces/protobuffs --python_out=wms/interfaces/protobuffs wms/interfaces/protobuffs/*.proto && pip install --trusted-host pypi01.stagealot.com --index-url http://pypi01.stagealot.com/pypi -e . && /usr/local/bin/s3f_service.py --service-type wms -in 0.0.0.0:6333 -ll INFO"
 ```
 # Start the load balancer and also your service and they will run in parallel as below.
+![screen shot 2016-11-09 at 13 24 44](https://cloud.githubusercontent.com/assets/16188304/20139069/eef7f526-a68c-11e6-8cef-3f73f4c24e85.png)
